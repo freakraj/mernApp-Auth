@@ -26,3 +26,15 @@ app.listen(3000, () => {
 app.use("/api/user", userRoutes);
 
 app.use("/api/auth", authRoutes);
+
+// midelware
+app.use((err, req, res, next) =>{
+    const statusCode = err.statusCode || 500;
+    const message = err.message || 'Internal Server error';
+    return res.status(statusCode).json({
+        success:false,
+        message,
+        statusCode
+    });
+
+});
